@@ -25,6 +25,8 @@ namespace Alura.ListaLeitura.App
             builder.MapRoute("Livros/Lidos", LivrosLidos);
             builder.MapRoute("Livros/Cadastro/NovoLivro/{nome}/{autor}", NovoLivroParaLer);//Adicionar um novo livro à lista de livros para Ler
             builder.MapRoute("Livros/Detalhes/{id:int}", ExibeDetalhes);//Requisição para exibir de talhes do livro, percebam que restringimos que atenderemos esta rota somente se a requisição for 'int'
+            builder.MapRoute("Livros/Cadastro/NovoLivro", ExibeFormulario);
+            builder.MapRoute("Cadastro/Incluir", ProcessaFormulario);
 
             var rotas = builder.Build();//Para não ocorrer erro preciso de um método 'ConfigureServices' com services  
 
@@ -32,7 +34,35 @@ namespace Alura.ListaLeitura.App
             //app.Run(Roteamento);//Não vamos mais utilizar o nosso Roteamento feito a mão, mas sim utilizamremos 'RouteBuilder'
         }
 
-        private Task ExibeDetalhes(HttpContext context) 
+        private Task ProcessaFormulario(HttpContext context)
+        {
+            var livro = new Livro()
+            {
+                Titulo = context.Request.Query["titulo"].First(),
+                Autor = context.Request.Query["autor"].First()
+            };
+            var _repo = new LivroRepositorioCSV();
+            _repo.Incluir(livro);
+
+            return context.Response.WriteAsync("O livro foi adicionado com sucesso!");
+        }
+
+        private Task ExibeFormulario(HttpContext context)
+        {
+            var html = @"
+                <html>
+                    <form action='/Cadastro/Incluir'>
+                        <input name='titulo'/>
+                        <input name='autor'/>
+                        <button>Gravar</button>
+                    </form>
+                </html>
+            ";
+
+            return context.Response.WriteAsync(html);
+        }
+
+        private Task ExibeDetalhes(HttpContext context)
         {
             int id = Convert.ToInt32(context.GetRouteValue("id")); //Pega o id o convertendo para inteiro
             var repo = new LivroRepositorioCSV();
@@ -45,7 +75,7 @@ namespace Alura.ListaLeitura.App
             var livro = new Livro()
             {
                 Titulo = Convert.ToString(context.GetRouteValue("nome")),//Pegando no endereço o valor nome e convertendo para string que é o tipo do campo titulo definido na classe Livro
-                 Autor = Convert.ToString(context.GetRouteValue("autor"))//Pegando no endereço o valor nome e convertendo para string que é o tipo do campo autor definido na classe Livro
+                Autor = Convert.ToString(context.GetRouteValue("autor"))//Pegando no endereço o valor nome e convertendo para string que é o tipo do campo autor definido na classe Livro
             };
             var repo = new LivroRepositorioCSV();
 
