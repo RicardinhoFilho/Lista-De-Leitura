@@ -13,3 +13,4 @@ C:\Users\User\Desktop\Entendendo Estrutura MVC\Alura.ListaLeitura\Alura.ListaLei
 C:\Users\User\Desktop\Entendendo Estrutura MVC\Alura.ListaLeitura\Alura.ListaLeitura.App\bin\Debug\netcoreapp2.0\Repositorio\livros.csv
 C:\Users\User\Desktop\Entendendo Estrutura MVC\Alura.ListaLeitura\Alura.ListaLeitura.App\bin\Debug\netcoreapp2.0\HTML\cadastrarNovoLivro.html
 C:\Users\User\Desktop\Entendendo Estrutura MVC\Alura.ListaLeitura\Alura.ListaLeitura.App\bin\Debug\netcoreapp2.0\HTML\listaDinamicaLivros.html
+C:\Users\User\Desktop\Entendendo Estrutura MVC\Alura.ListaLeitura\Alura.ListaLeitura.App\bin\Debug\netcoreapp2.0\HTML\detalhesLivro.html
