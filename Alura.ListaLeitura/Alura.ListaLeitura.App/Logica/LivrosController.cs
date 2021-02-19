@@ -11,11 +11,10 @@ using Alura.ListaLeitura.App.HTML;
 
 namespace Alura.ListaLeitura.App.Logica
 {
-    public class LivrosLogicaExibicao
+    public class LivrosController
     {
-        public static Task ExibeDetalhes(HttpContext context)
+        public string Detalhes(int id)
         {
-            int id = Convert.ToInt32(context.GetRouteValue("id")); //Pega o id o convertendo para inteiro
             var conteudo = HTMLUtils.CarregaArquivoHTML("detalhesLivro");
             var repo = new LivroRepositorioCSV();
             var livro = repo.Todos.First(l => l.Id == id); //analisa dentro da lista na classe 'LivroRepositorioCSV' o Livro.id
@@ -26,7 +25,7 @@ namespace Alura.ListaLeitura.App.Logica
 
             //return context.Response.WriteAsync(livro.Detalhes());//Retorna a função Detalhes presente na classe 'Livro' 
 
-            return context.Response.WriteAsync(conteudo);//Retrona nosso arquivo HTML 
+            return conteudo;//Retrona nosso arquivo HTML 
         }
 
         public static Task NovoLivroParaLer(HttpContext context)
@@ -44,7 +43,7 @@ namespace Alura.ListaLeitura.App.Logica
         }
 
 
-        public static Task LivrosParaLer(HttpContext context)
+        public static Task ParaLer(HttpContext context)
         {
             var _repo = new LivroRepositorioCSV();
             var conteudo = HTMLUtils.CarregaArquivoHTML("listaDinamicaLivros");
@@ -59,7 +58,7 @@ namespace Alura.ListaLeitura.App.Logica
             return context.Response.WriteAsync(conteudo);
         }
 
-        public static Task LivrosLidos(HttpContext context)
+        public static Task Lidos(HttpContext context)
         {
             var _repo = new LivroRepositorioCSV();
             var conteudo = HTMLUtils.CarregaArquivoHTML("listaDinamicaLivros");
@@ -73,7 +72,7 @@ namespace Alura.ListaLeitura.App.Logica
             return context.Response.WriteAsync(conteudo);
         }
 
-        public static Task LivrosLendo(HttpContext context)
+        public static Task Lendo(HttpContext context)
         {
             var _repo = new LivroRepositorioCSV();
             var conteudo = HTMLUtils.CarregaArquivoHTML("listaDinamicaLivros");
@@ -86,6 +85,11 @@ namespace Alura.ListaLeitura.App.Logica
             conteudo = conteudo.Replace("#Novo-Item#", " ");
 
             return context.Response.WriteAsync(conteudo);
+        }
+
+        public string Teste()
+        {
+            return "nova funcionalidade implementada!";
         }
 
     }

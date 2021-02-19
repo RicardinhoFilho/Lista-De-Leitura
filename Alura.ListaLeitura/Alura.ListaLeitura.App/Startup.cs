@@ -20,24 +20,31 @@ namespace Alura.ListaLeitura.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting();
+            services.AddMvc();
         }
 
         //CONFIGURANDO AS ROTAS
         public void Configure(IApplicationBuilder app)
         {
-            var builder = new RouteBuilder(app);
-            builder.MapRoute("Livros/ParaLer", LivrosLogicaExibicao.LivrosParaLer);
-            builder.MapRoute("Livros/Lendo", LivrosLogicaExibicao.LivrosLendo);
-            builder.MapRoute("Livros/Lidos", LivrosLogicaExibicao.LivrosLidos);
-            builder.MapRoute("Livros/Cadastro/NovoLivro/{nome}/{autor}", CadastroLogica.NovoLivroParaLer);//Adicionar um novo livro à lista de livros para Ler
-            builder.MapRoute("Livros/Detalhes/{id:int}", LivrosLogicaExibicao.ExibeDetalhes);//Requisição para exibir de talhes do livro, percebam que restringimos que atenderemos esta rota somente se a requisição for 'int'
-            builder.MapRoute("Livros/Cadastro/NovoLivro", CadastroLogica.ExibeFormulario);
-            builder.MapRoute("Cadastro/Incluir", CadastroLogica.ProcessaFormulario);
 
-            var rotas = builder.Build();//Para não ocorrer erro preciso de um método 'ConfigureServices' com services  
 
-            app.UseRouter(rotas); //Utilizando UseRouter para iniciar nosso rotiamento 
-            //app.Run(Roteamento);//Não vamos mais utilizar o nosso Roteamento feito a mão, mas sim utilizamremos 'RouteBuilder'
+
+            app.UseMvcWithDefaultRoute();
+
+            //var builder = new RouteBuilder(app);
+            
+            ////builder.MapRoute("Livros/ParaLer", LivrosLogicaExibicao.ParaLer);
+            ////builder.MapRoute("Livros/Lendo", LivrosLogicaExibicao.Lendo);
+            ////builder.MapRoute("Livros/Lidos", LivrosLogicaExibicao.Lidos);
+            ////builder.MapRoute("Livros/Detalhes/{id:int}", LivrosLogicaExibicao.Detalhes);//Requisição para exibir de talhes do livro, percebam que restringimos que atenderemos esta rota somente se a requisição for 'int'
+            ////builder.MapRoute("Cadastro/NovoLivro/{nome}/{autor}", CadastroLogica.NovoLivro);//Adicionar um novo livro à lista de livros para Ler
+            ////builder.MapRoute("Cadastro/ExibeFormulario", CadastroLogica.ExibeFormulario);
+            ////builder.MapRoute("Cadastro/Incluir", CadastroLogica.Incluir);
+
+            //var rotas = builder.Build();//Para não ocorrer erro preciso de um método 'ConfigureServices' com services  
+
+            //app.UseRouter(rotas); //Utilizando UseRouter para iniciar nosso rotiamento 
+            ////app.Run(Roteamento);//Não vamos mais utilizar o nosso Roteamento feito a mão, mas sim utilizamremos 'RouteBuilder'
         }
 
        
