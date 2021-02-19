@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Alura.ListaLeitura.App
 {
@@ -38,8 +39,13 @@ namespace Alura.ListaLeitura.App
         {
             var livro = new Livro()
             {
-                Titulo = context.Request.Query["titulo"].First(),
-                Autor = context.Request.Query["autor"].First()
+                //Antes recebiamos as informações pelo método get, exibiamos no url as informações dos livros
+                //Titulo = context.Request.Query["titulo"].First(),
+                // Autor = context.Request.Query["autor"].First()
+
+                //Agora como estamos utilizando o método post, temos q mudar nossa construção:
+                Titulo = context.Request.Form["titulo"].First(),
+                 Autor = context.Request.Form["autor"].First()
             };
             var _repo = new LivroRepositorioCSV();
             _repo.Incluir(livro);
@@ -49,17 +55,18 @@ namespace Alura.ListaLeitura.App
 
         private Task ExibeFormulario(HttpContext context)
         {
-            var html = @"
-                <html>
-                    <form action='/Cadastro/Incluir'>
-                        <input name='titulo'/>
-                        <input name='autor'/>
-                        <button>Gravar</button>
-                    </form>
-                </html>
-            ";
+            var html = CarregaArquivoHTML("cadastrarNovoLivro");
 
             return context.Response.WriteAsync(html);
+        }
+
+        private string CarregaArquivoHTML(string nomeArquivo)
+        {
+            var nomeCompletoArquivo = $"HTML/{nomeArquivo}.html";
+            using (var arquivo = File.OpenText(nomeCompletoArquivo))
+            {
+                return arquivo.ReadToEnd();
+            }
         }
 
         private Task ExibeDetalhes(HttpContext context)
@@ -88,25 +95,45 @@ namespace Alura.ListaLeitura.App
         public Task LivrosParaLer(HttpContext context)
         {
             var _repo = new LivroRepositorioCSV();
+            var conteudo = CarregaArquivoHTML("listaDinamicaLivros");
 
+            foreach (var livro in _repo.ParaLer.Livros)
+            {
+                conteudo = conteudo.Replace("#Novo-Item#", $"<li>{livro.Titulo} - {livro.Autor}</li> #Novo-Item#");
+            }
 
-            return context.Response.WriteAsync(_repo.ParaLer.ToString());
+            conteudo = conteudo.Replace("#Novo-Item#", " ");
+
+            return context.Response.WriteAsync(conteudo);
         }
 
         public Task LivrosLidos(HttpContext context)
         {
             var _repo = new LivroRepositorioCSV();
+            var conteudo = CarregaArquivoHTML("listaDinamicaLivros");
 
+            foreach (var livro in _repo.Lidos.Livros)
+            {
+                conteudo = conteudo.Replace("#Novo-Item#", $"<li>{livro.Titulo} - {livro.Autor}</li> #Novo-Item#");
+            }
 
-            return context.Response.WriteAsync(_repo.Lidos.ToString());
+            conteudo = conteudo.Replace("#Novo-Item#", " ");
+            return context.Response.WriteAsync(conteudo);
         }
 
         public Task LivrosLendo(HttpContext context)
         {
             var _repo = new LivroRepositorioCSV();
+            var conteudo = CarregaArquivoHTML("listaDinamicaLivros");
 
+            foreach (var livro in _repo.Lendo.Livros)
+            {
+                conteudo = conteudo.Replace("#Novo-Item#", $"<li>{livro.Titulo} - {livro.Autor}</li> #Novo-Item#");
+            }
 
-            return context.Response.WriteAsync(_repo.Lendo.ToString());
+            conteudo = conteudo.Replace("#Novo-Item#", " ");
+
+            return context.Response.WriteAsync(conteudo);
         }
 
 

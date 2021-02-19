@@ -12,9 +12,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Repositorio\livros.csv">
+    <None Update="HTML\cadastrarNovoLivro.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="HTML\listaDinamicaLivros.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="HTML\paraLer.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositorio\livros.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="HTML\" />
   </ItemGroup>
 
 </Project>
