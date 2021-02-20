@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livros Para Ler</title>
+    <title>Cadastrar Novo Livro</title>
 </head>
 
 <body>
-    <ul>
-        #Novo-Item#
-    </ul>
+
+    @foreach (var livro in ViewBag.Livros)
+        {
+    <li> @livro.Titulo - @livro.Autor </li>
+        }
 </body>
 
 </html>

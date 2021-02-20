@@ -2,6 +2,7 @@
 using Alura.ListaLeitura.App.Negocio;
 using Alura.ListaLeitura.App.Repositorio;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
@@ -15,27 +16,17 @@ namespace Alura.ListaLeitura.App.Logica
     {
         public string Incluir(Livro livro)
         {
-            //var livro = new Livro()
-            //{
-            //    //Antes recebiamos as informações pelo método get, exibiamos no url as informações dos livros
-            //    //Titulo = context.Request.Query["titulo"].First(),
-            //    // Autor = context.Request.Query["autor"].First()
-
-            //    //Agora como estamos utilizando o método post, temos q mudar nossa construção:
-            //    Titulo = context.Request.Form["titulo"].First(),
-            //    Autor = context.Request.Form["autor"].First()
-            //};
             var _repo = new LivroRepositorioCSV();
             _repo.Incluir(livro);
 
             return "O livro foi adicionado com sucesso!";
         }
 
-        public static Task ExibeFormulario(HttpContext context)
+        public IActionResult ExibeFormulario()
         {
-            var html = HTMLUtils.CarregaArquivoHTML("cadastrarNovoLivro");
-
-            return context.Response.WriteAsync(html);
+            //var html = HTMLUtils.CarregaArquivoHTML("cadastrarNovoLivro");
+            var html = new ViewResult { ViewName = "formulario" };
+            return html;
         }
 
     }

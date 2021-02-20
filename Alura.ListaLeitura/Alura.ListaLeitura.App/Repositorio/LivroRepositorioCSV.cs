@@ -73,5 +73,6 @@ namespace Alura.ListaLeitura.App.Repositorio
                 file.WriteLine($"para-ler;{id+1};{livro.Titulo};{livro.Autor}");
             }
         }
+
     }
 }

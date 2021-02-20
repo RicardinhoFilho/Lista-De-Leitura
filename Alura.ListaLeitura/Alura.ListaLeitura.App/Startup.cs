@@ -1,15 +1,5 @@
-﻿using Alura.ListaLeitura.App.Negocio;
-using Alura.ListaLeitura.App.Repositorio;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.IO;
-using Alura.ListaLeitura.App.Logica;
 
 namespace Alura.ListaLeitura.App
 {
@@ -19,7 +9,6 @@ namespace Alura.ListaLeitura.App
         //INICIANDO O SERVIÇO DE ROTEAMENTO
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRouting();
             services.AddMvc();
         }
 
@@ -27,8 +16,7 @@ namespace Alura.ListaLeitura.App
         public void Configure(IApplicationBuilder app)
         {
 
-
-
+            app.UseDeveloperExceptionPage();//Está extensão só deve ser utilizada no ambiente de deslvolvimento, pois permite o usuário ter acesso à dados sensiveis de nossa aplicação
             app.UseMvcWithDefaultRoute();
 
             //var builder = new RouteBuilder(app);
@@ -38,7 +26,6 @@ namespace Alura.ListaLeitura.App
             ////builder.MapRoute("Livros/Lidos", LivrosLogicaExibicao.Lidos);
             ////builder.MapRoute("Livros/Detalhes/{id:int}", LivrosLogicaExibicao.Detalhes);//Requisição para exibir de talhes do livro, percebam que restringimos que atenderemos esta rota somente se a requisição for 'int'
             ////builder.MapRoute("Cadastro/NovoLivro/{nome}/{autor}", CadastroLogica.NovoLivro);//Adicionar um novo livro à lista de livros para Ler
-            ////builder.MapRoute("Cadastro/ExibeFormulario", CadastroLogica.ExibeFormulario);
             ////builder.MapRoute("Cadastro/Incluir", CadastroLogica.Incluir);
 
             //var rotas = builder.Build();//Para não ocorrer erro preciso de um método 'ConfigureServices' com services  

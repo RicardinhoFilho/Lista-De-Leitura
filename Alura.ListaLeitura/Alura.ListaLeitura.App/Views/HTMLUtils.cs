@@ -9,7 +9,7 @@ namespace Alura.ListaLeitura.App.HTML
     {
         public static string CarregaArquivoHTML(string nomeArquivo)
         {
-            var nomeCompletoArquivo = $"HTML/{nomeArquivo}.html";
+            var nomeCompletoArquivo = $"HTML/{nomeArquivo}.cshtml";
             using (var arquivo = File.OpenText(nomeCompletoArquivo))
             {
                 return arquivo.ReadToEnd();

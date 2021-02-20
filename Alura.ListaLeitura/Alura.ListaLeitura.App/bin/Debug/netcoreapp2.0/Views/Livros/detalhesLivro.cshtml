@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -11,9 +11,9 @@
 <body>
     <h1>Detalhes do Livro</h1>
 
-    <p>Título: #titulo#</p>
-    <p>Autor: #autor#</p>
-    <p>Lista: #lista#</p>
+    <p>Titulo: @ViewBag.Livros.Titulo</p>
+    <p>Autor:@ViewBag.Livros.Autor</p>
+    <p>Lista: @ViewBag.Livros.Lista.Titulo</p>
 </body>
 
 </html>

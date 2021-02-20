@@ -11,6 +11,7 @@ namespace Alura.ListaLeitura.App
         {
             var _repo = new LivroRepositorioCSV();
 
+
             try
             {
                 IWebHost host = new WebHostBuilder()
